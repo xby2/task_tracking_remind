@@ -3,7 +3,7 @@ Send slack reminder on task tracking time
 
 ## Technology
 
-* Node.js (using ES6)
+* Node.js
 * NPM modules
   * Wavy
   * BotKit
