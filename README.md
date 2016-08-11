@@ -40,20 +40,19 @@ $ npm start
 ```
 ## Conventions
 
-* JavaScript Hoisting for service files
+* JavaScript Hosting for service files
 
 ## To Do
 
 - [ ] Have action run on a schedule
-- [ ] Use casperjs to scrap task tracking data
+- [ ] Use CasperJS to scrap task tracking data
 - [x] Send slack message to employees
 
 ## Contributors
 
 [Jeff Sallans](https://github.com/JeffSallans)
 
-
-Dave Farinelli
+[Dave Farinelli](https://github.com/davefarinelli)
 
 Bill Sun
 
