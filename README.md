@@ -51,7 +51,12 @@ $ npm start
 ## Contributors
 
 [Jeff Sallans](https://github.com/JeffSallans)
+
+
 Dave Farinelli
+
 Bill Sun
+
 Liban Abukar
+
 Mohammed Hussain
