@@ -1,0 +1,23 @@
+{
+  "name": "electrgar",
+  "version": "1.0.0",
+  "description": "send slack reminder on task tracking time",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "slack",
+    "task",
+    "tracking"
+  ],
+  "author": "Hack Night Team",
+  "license": "ISC",
+  "dependencies": {
+    "botkit": "^0.2.2",
+    "casper": "^0.1.1",
+    "lodash": "^4.14.2",
+    "phantomjs": "^2.1.7",
+    "wavy": "^1.0.3"
+  }
+}
