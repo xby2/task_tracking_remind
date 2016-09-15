@@ -38,3 +38,9 @@ jspm_packages
 
 # Config file
 config.js
+
+# Debugging captures
+*.png
+
+# Sublime-files
+*.sublime-workspace

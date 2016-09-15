@@ -30,6 +30,16 @@ module.exports = {
 };
 ```
 
+5) Install casperjs
+```
+$ npm install casperjs -g
+```
+
+5) Install phantomjs
+```
+$ npm install phantomjs -g
+```
+
 ## Deployment
 
 1) Navigate to project directory
