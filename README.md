@@ -25,7 +25,8 @@ $ npm install
 
 module.exports = {
 	slackToken: 'your token here',
-	taskTrackingUrl: '',
+	taskTrackingUrl: 'https://<username>:<password>@xby2apps.xby2.com/TaskManagement/EmployeeAdmin',
+	adminCalendarUrl: 'https://<username>:<password>@xby2apps.xby2.com/TaskManagement/Administration/GetActivities',
 	messageTemplate: 'FILL IN YOUR DATA',
 };
 ```
