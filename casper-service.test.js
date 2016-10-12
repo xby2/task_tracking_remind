@@ -3,10 +3,30 @@
  */
 "use strict";
 
-var casperService = require('~/casper-service');
+//var casperService = require('~/casper-service');
 var settings = require('./config');
 
 console.log("Starting Application");
+
+var Client = require('node-rest-client').Client;
+var options = {
+	connection: {
+		rejectUnauthorized: false,
+		headers: {
+		"Content-Type": "application/html"
+		}
+	},
+	requestConfig: {
+		timeout: 30000,
+		noDelay: true,
+		keepAlive: true,
+		keepAliveDelay: 30000
+	},
+	responseConfig: {
+		timeout: 30000
+	}
+};
+var client = new Client(options);
 
 var casper = require('casper').create({
 	verbose: true,
@@ -57,6 +77,7 @@ casper.waitForSelector('#filter-active', function() {
 					var targetElements = document.querySelectorAll('div.display-field');
 
 					return {
+						'userid': targetElements[0].innerHTML.trim(),
 						'username': targetElements[1].innerHTML.trim(),
 						'name' : targetElements[7].innerHTML.trim() +
 							' ' +
@@ -73,6 +94,30 @@ casper.waitForSelector('#filter-active', function() {
 
 		counter++;
 	});
+
+	counter = 0;
+	casper.repeat(users.length, function() {
+
+		//Call api ?userId=142&start=2016-10-01&end=2016-10-12
+		var today = new Date();
+
+		var secondsInAday = 1000 * 60 * 60 * 24 * 2;
+
+		var twoWeeksAgo = today - 14 * secondsInAday;
+
+		function getFormat(d) {
+			return d.getFullYear() + "-" + d.getMonth() + "-" + d.getDay();
+		}
+
+		var queryString = '?userId=' + users[counter].userid + '&start=' + getFormat(twoWeeksAgo) + '&end=' + getFormat(today); 
+
+		client.get(settings.adminCalendarUrl + queryString, function(data, response) {
+
+			console.log(JSON.stringigy(data));
+		});
+
+		counter++;
+	});	
 });
 
 

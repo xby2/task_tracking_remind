@@ -1,8 +1,12 @@
 {
-  "name": "electrgar",
+  "name": "task_tracking_remind",
   "version": "1.0.0",
   "description": "send slack reminder on task tracking time",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xby2/task_tracking_remind.git"
+  },
   "scripts": {
     "start": "node index.js"
   },
@@ -17,6 +21,7 @@
     "botkit": "^0.2.2",
     "casper": "^0.1.1",
     "lodash": "^4.14.2",
+    "node-rest-client": "^2.0.1",
     "phantomjs": "^2.1.7",
     "wavy": "^1.0.3"
   }
