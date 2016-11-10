@@ -8,7 +8,6 @@ var settings = require('./config');
 
 console.log("Starting Application");
 
-var Client = require('node-rest-client').Client;
 var options = {
 	connection: {
 		rejectUnauthorized: false,
@@ -26,7 +25,6 @@ var options = {
 		timeout: 30000
 	}
 };
-var client = new Client(options);
 
 var casper = require('casper').create({
 	verbose: true,
@@ -50,7 +48,6 @@ casper.waitForSelector('#filter-active', function() {
 	var detailUrls = casper.evaluate(function() {
 		console.log('Running on remote');
 		var targetElements = document.querySelectorAll('.actions a:last-child');
-		console.log(targetElements[0].innerHTML);
 
 		var result = [];
 
@@ -85,16 +82,81 @@ casper.waitForSelector('#filter-active', function() {
 					};
 				});
 
-				console.log(user['username']);
-				console.log(user['name']);
+				//Call api ?userId=142&start=2016-10-01&end=2016-10-12
+				var today = new Date();
 
-				users.push(user);
+				console.log(today);
+
+				var secondsInAday = 1000 * 60 * 60 * 24 * 2;
+
+				var twoWeeksAgo = new Date(today.getTime() - 14 * secondsInAday);
+
+				function getFormat(d) {
+					return d.getFullYear() + "-" + d.getMonth() + "-" + d.getDay();
+				}
+
+				var queryString = '?userId=' + user.userid + '&start=' + getFormat(twoWeeksAgo) + '&end=' + getFormat(today); 
+
+				console.log('after require', settings.adminCalendarUrl + queryString);
+
+				casper.thenOpen(settings.adminCalendarUrl + queryString, {
+					method: 'get',
+					headers: {
+						'Accept': 'application/json'
+					}
+				}, function() {
+
+					var calendarData = JSON.parse(casper.getPageContent());
+
+					var doesNotHaveTaskTrackingData = calendarData.length === 0;
+
+					if (doesNotHaveTaskTrackingData) {
+
+						console.log(user.name + " hasn't entered their time.");
+
+						var slackService = require('~/slack-service');
+
+						console.log("........derp");
+
+						slackService.sendMessage("jsallans@xby2.com", "TO" + user.username + "" + settings.messageTemplate);
+					}
+				});
+//				require('utils').dump(JSON.parse(casper.getPageContent()));
+/*
+				var xhr = new XMLHttpRequest();
+				
+				xhr.onreadystatechange = function () {
+				  var DONE = 4; // readyState 4 means the request is done.
+				  var OK = 200; // status 200 is a successful return.
+				  console.log("response", JSON.stringify(xhr));
+				  if (xhr.readyState === DONE) {
+				    if (xhr.status === OK) {
+						console.log(xhr.responseText); // 'This is the returned text.'
+				    }
+				    else {
+						console.log('Error: ' + xhr.status); // An error occurred during the request.
+				    }
+				  }
+				};
+
+				xhr.open('GET', settings.adminCalendarUrl + queryString);
+				xhr.send(null);
+
+
+				/*client.get(settings.adminCalendarUrl + queryString, function(data, response) {
+
+					console.log(JSON.stringigy(data));
+				});*/
+
+				//users.push(user);
 			});
 		});
 
 		counter++;
 	});
 
+	console.log('YYYYYYY');
+/*
 	counter = 0;
 	casper.repeat(users.length, function() {
 
@@ -111,13 +173,21 @@ casper.waitForSelector('#filter-active', function() {
 
 		var queryString = '?userId=' + users[counter].userid + '&start=' + getFormat(twoWeeksAgo) + '&end=' + getFormat(today); 
 
-		client.get(settings.adminCalendarUrl + queryString, function(data, response) {
+		console.log('before require');
+
+		//var Client = require('node-rest-client').Client;
+		//var client = new Client(options);
+
+		console.log('after require', queryString);
+
+		/*client.get(settings.adminCalendarUrl + queryString, function(data, response) {
 
 			console.log(JSON.stringigy(data));
 		});
 
 		counter++;
 	});	
+*/
 });
 
 
