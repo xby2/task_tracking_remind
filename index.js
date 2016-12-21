@@ -4,8 +4,8 @@
 "use strict";
 
 let settings = require('./config');
-let slackService = require('~/slack-service');
-let Casper = require('Casper');
+//let slackService = require('./slack-service');
+let Casper = require('casper-nodejs');
 
 var url = "http://google.com";
 // load the page refered with 'url' with casper
@@ -30,7 +30,7 @@ casper.then(function executed_in_casperjs_context() {
 casper.exit();
 
 //Schedule logic
-
+/*
 	//Get list of employees that have missing time over two weeks 
 	let allEmployees = casperService.getActiveEmployees();
 
@@ -48,4 +48,4 @@ casper.exit();
 	//Sample slack
 	//slackService.sendMessage('mhussain@xby2.com', 'I realized this method of messaging is anonymous. Muah ha ha');
 
-
+*/

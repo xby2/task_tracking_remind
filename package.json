@@ -20,6 +20,7 @@
   "dependencies": {
     "botkit": "^0.2.2",
     "casper": "^0.1.1",
+    "casper-nodejs": "^1.0.0",
     "lodash": "^4.14.2",
     "node-rest-client": "^2.0.1",
     "phantomjs": "^2.1.7",
